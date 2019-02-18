@@ -9,6 +9,8 @@
 # production
 /build
 
+/data/ApiKey.js
+
 # misc
 .DS_Store
 .env.local

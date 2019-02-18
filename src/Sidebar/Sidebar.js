@@ -1,5 +1,14 @@
+/* Add React */
 import React, { Component } from "react";
 import "./Sidebar.css";
+
+/* Add Bootstrap Components from OLD */
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from "react-bootstrap";
+
 
 class Sidebar extends Component {
   constructor(props) {
@@ -57,3 +66,104 @@ class Sidebar extends Component {
 }
 
 export default Sidebar;
+
+/* --------------------------------
+
+            OLD CODE
+
+-------------------------------- */
+
+
+export class Menu extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      totalAmount: 5,
+      open: true
+    };
+  }
+
+  toggle() {
+    this.setState({
+      open: !this.state.open
+    });
+  }
+
+  render() {
+    return (
+        <Container fluid="true" className="fill">
+          <Navbar>
+            <Col md={10} xs={5}>
+              <h4>My Dinner</h4>
+            </Col>
+            <Col md={1} xs={5} className="d-block d-md-none">
+              <h4 class="moneyMenu">SEK {this.state.totalAmount}</h4>
+            </Col>
+            <Col md={1} className="col-2 d-block d-md-none">
+              <Button variant="light" onClick={this.toggle.bind(this)}>
+                <span class="navbar-toggler-icon" />
+              </Button>
+            </Col>
+          </Navbar>
+          <div
+              class={
+                "d-" +
+                (this.state.open ? "none" : "block") +
+                " d-md-" +
+                (this.state.open ? "block" : "none")
+              }
+          >
+            <MenuView />
+          </div>
+        </Container>
+    );
+  }
+}
+/*'d-none d-sm-block'*/
+/*<div className={{ "d-" + (this.state.open ? "none" : "block") }} 'd-none d-sm-block'>*/
+
+class MenuView extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+        <div>
+          <PeopleSelect />
+          <MenuTable />
+          <ConfirmDinner />
+        </div>
+    );
+  }
+}
+
+class PeopleSelect extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return <h1>"hey3"</h1>;
+  }
+}
+
+class MenuTable extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return <h1>"hey"</h1>;
+  }
+}
+
+class ConfirmDinner extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return <h1>"heyla"</h1>;
+  }
+}

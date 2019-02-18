@@ -1,8 +1,12 @@
 import ObservableModel from "./ObservableModel";
+/* Import .gitignore'd ApiKey.js */
+import ApiKey from "./ApiKey";
 
-const BASE_URL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com";
+const apiKey = new ApiKey();
+
+const BASE_URL = apiKey.getUrl();
 const httpOptions = {
-  headers: { "X-Mashape-Key": "YOUR_API_KEY" }
+  headers: { "X-Mashape-Key": apiKey.getKey() }
 };
 
 class DinnerModel extends ObservableModel {
