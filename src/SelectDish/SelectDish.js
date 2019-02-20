@@ -3,16 +3,27 @@ import Sidebar from "../Sidebar/Sidebar";
 import Dishes from "../Dishes/Dishes";
 import "./SelectDish.css";
 
+import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+
 class SelectDish extends Component {
   render() {
     return (
-      <div className="SelectDish">
-        <h2>This is the Select Dish screen</h2>
-
-        {/* We pass the model as property to the Sidebar component */}
-        <Sidebar model={this.props.model} />
-        <Dishes />
-      </div>
+      <Container fluid={"true"} className="SelectDish">
+        <Row>
+            <Col md={4}>
+                <Sidebar model={this.props.model} />
+            </Col>
+            <Col md={4}>
+                <h2>This is the Select Dish screen</h2>
+            </Col>
+            <Col md={4}>
+                {/*<Dishes />*/}
+                <h1>hey</h1>
+            </Col>
+        </Row>
+      </Container>
     );
   }
 }

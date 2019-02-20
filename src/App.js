@@ -5,6 +5,12 @@ import modelInstance from "./data/DinnerModel";
 import SelectDish from "./SelectDish/SelectDish";
 import "./App.css";
 
+import Container from "react-bootstrap/Container"
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+import Header from "./Header/Header"
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -15,9 +21,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <Container fluid={"true"}>
         <header className="App-header">
-          <h1 className="App-title">{this.state.title}</h1>
+          <Header title={this.state.title}/>
 
           {/* We rendered different component based on the path */}
           <Route exact path="/" component={Welcome} />
@@ -26,7 +32,7 @@ class App extends Component {
             render={() => <SelectDish model={modelInstance} />}
           />
         </header>
-      </div>
+      </Container>
     );
   }
 }

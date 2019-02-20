@@ -2,16 +2,23 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./Welcome.css";
 
+import Container from "react-bootstrap/Container"
+import Button from "react-bootstrap/Button";
+
+
 class Welcome extends Component {
   render() {
     return (
-      <div className="Welcome">
-        <p>Welcome to the dinner planner React Startup code!</p>
+      <Container fluid={"true"}>
+          <div className="Welcome">
+              <p>Welcome to the dinner planner React Startup code!
+                  Change me with the full options, as in the prev labs</p>
 
-        <Link to="/search">
-          <button>Start planning</button>
-        </Link>
-      </div>
+              <Link to="/search">
+                  <Button>Start planning</Button>
+              </Link>
+          </div>
+      </Container>
     );
   }
 }

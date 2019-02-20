@@ -2,8 +2,8 @@ import ObservableModel from "./ObservableModel";
 /* Import .gitignore'd ApiKey.js */
 import ApiKey from "./ApiKey";
 
+/* Setup the API parameters */
 const apiKey = new ApiKey();
-
 const BASE_URL = apiKey.getUrl();
 const httpOptions = {
   headers: { "X-Mashape-Key": apiKey.getKey() }
@@ -12,7 +12,7 @@ const httpOptions = {
 class DinnerModel extends ObservableModel {
   constructor() {
     super();
-    this._numberOfGuests = 4;
+    this._numberOfGuests = 1;
     this.getNumberOfGuests();
   }
 
@@ -44,7 +44,7 @@ class DinnerModel extends ObservableModel {
     return fetch(url, httpOptions).then(this.processResponse);
   }
 
-  processResponse(response) {
+  static processResponse(response) {
     if (response.ok) {
       return response.json();
     }
@@ -52,6 +52,6 @@ class DinnerModel extends ObservableModel {
   }
 }
 
-// Export an instance of DinnerModel
+// Export _an_ instance of DinnerModel
 const modelInstance = new DinnerModel();
 export default modelInstance;
