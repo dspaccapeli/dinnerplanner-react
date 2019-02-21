@@ -23,7 +23,7 @@ export default class Topbar extends React.Component {
   render() {
     return (
       <Container className="fill" fluid="true">
-        <TopbarView />
+        <TopbarView model={this.props.model}/>
       </Container>
     );
   }
@@ -33,7 +33,6 @@ class TopbarView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      numberOfPeople: 1
     };
   }
 
@@ -42,7 +41,7 @@ class TopbarView extends React.Component {
         <React.Fragment>
             <Row>
                 <Col id="numOfPeople">
-                    <h3>My Dinner: &nbsp; {this.state.numberOfPeople}</h3>
+                    <h3>My Dinner: &nbsp; {this.props.model.getNumberOfGuests()} people</h3>
                 </Col>
                 <Col />
                 <Col />
@@ -50,8 +49,7 @@ class TopbarView extends React.Component {
                     <Link to={"/search"}>
                         <Button
                             id="backToEdit"
-                            variant="info"
-                        >
+                            variant="info">
                             Go back and edit dinner
                         </Button>
                     </Link>

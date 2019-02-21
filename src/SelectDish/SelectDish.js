@@ -27,16 +27,16 @@ export class DishItem extends React.Component {
         return (
             <React.Fragment>
                 <Col md={4} sm={6} className="media_box dish_item pointerStyle" >
-                    <Link to={`/dish/${this.props.value}`}>
+                    <Link to={`/dish/${this.props.dishId}`}>
                         <div className="box">
                             <div className="content">
                                 <img
-                                    src="http://www.babaimage.com/images/instagram-logo-png-transparent-background-3.png"
+                                    src={this.props.imgSrc}
                                     className="img img-responsive full-width media-object"
                                 />
                             </div>
                             <div className="caption" align="center">
-                                <h5 className="heading">The dish with an awesome name</h5>
+                                <h5 className="heading">{this.props.name}</h5>
                             </div>
                         </div>
                     </Link>
@@ -51,14 +51,30 @@ export class DishList extends React.Component {
         super(props);
     }
 
+    getAllDishItems (promise) {
+        console.log("I'm here.");
+        promise.then(dishDict => {
+            console.log("I'm here.2");
+            if (Object.keys(dishDict).length === 0) {
+                return "No dishes matching this criteria were found.";
+            }
+            return dishDict.map((entry) => <DishItem dishId={entry.id} name={entry.name} imgSrc={entry.image} />);
+            
+        }).catch( error => {
+            if (error.name === "TypeError" && error.message === "Failed to fetch") {
+                return "Could not load data from the server. Please check your internet connection and try again.";
+            }
+            else {
+                return "An unknown error occured: "+ error.message;
+            }
+        });
+    }
+
     render() {
         return (
             <React.Fragment>
                 <Row className="align-items-center" id="dish_again_list">
-                    <DishItem value={12345}/>
-                    <DishItem value={12344}/>
-                    <DishItem value={12345}/>
-                    <DishItem value={12344}/>
+                    {this.getAllDishItems(this.props.model.getAllDishes(this.props.type, this.props.filter))}
                 </Row>
             </React.Fragment>
         );
@@ -69,7 +85,8 @@ export class DishSearch extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: "All"
+            title: "All",
+            keywords: ""
         };
     }
 
@@ -91,84 +108,15 @@ export class DishSearch extends React.Component {
                         <DropdownButton
                             id="dropdown-basic-button"
                             title={this.state.title}
-                            variant="info"
-                        >
-                            <Dropdown.Item
-                                href="#"
-                                onSelect={() => this.setState({ title: "All" })}
-                            >
-                                All
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                href="#"
-                                onSelect={() => this.setState({ title: "Appetizer" })}
-                            >
-                                Appetizer
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                href="#"
-                                onSelect={() => this.setState({ title: "Main Course" })}
-                            >
-                                Main Course
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                href="#"
-                                onSelect={() => this.setState({ title: "Side Dish" })}
-                            >
-                                Side Dish
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                href="#"
-                                onSelect={() => this.setState({ title: "Dessert" })}
-                            >
-                                Dessert
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                href="#"
-                                onSelect={() => this.setState({ title: "Salad" })}
-                            >
-                                Salad
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                href="#"
-                                onSelect={() => this.setState({ title: "Bread" })}
-                            >
-                                Bread
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                href="#"
-                                onSelect={() => this.setState({ title: "Breakfast" })}
-                            >
-                                Breakfast
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                href="#"
-                                onSelect={() => this.setState({ title: "Soup" })}
-                            >
-                                Soup
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                href="#"
-                                onSelect={() => this.setState({ title: "Beverage" })}
-                            >
-                                Beverage
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                href="#"
-                                onSelect={() => this.setState({ title: "Sauce" })}
-                            >
-                                Sauce
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                href="#"
-                                onSelect={() => this.setState({ title: "Drink" })}
-                            >
-                                Drink
-                            </Dropdown.Item>
+                            variant="info">
+                            {['All', 'Appetizer', 'Main course', 'Side Dish', 'Dessert', 'Salad', 'Bread', 'Breakfast', 'Soup', 'Beverage', 'Sauce', 'Drink']
+                            .map((item, i) =>
+                                <Dropdown.Item href="#" key={i} onSelect={() => this.setState({ title: item })} >{item}</Dropdown.Item>             
+                            )}
                         </DropdownButton>
                     </Col>
                     <Col sm={4} align="center">
-                        <Button variant="info" id="search_button" className="mar_top_5">
+                        <Button variant="info" id="search_button" className="mar_top_5" /*onClick={this.props.changeFn(this.title, this.keywords)}*/ >
                             Search
                         </Button>
                     </Col>
@@ -183,13 +131,24 @@ export class DishSearch extends React.Component {
 export default class SelectDish extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            type: "All",
+            filter: ""
+          };
     }
+
+    changeSearchParams (type, filter) {
+        this.setState({
+          type: type,
+          filter: filter
+        });
+      }
 
     render() {
         return (
             <React.Fragment>
-                <DishSearch />
-                <DishList />
+                <DishSearch changeFn={this.changeSearchParams.bind(this)} />
+                <DishList model={this.props.model} type={this.state.type} filter={this.state.filter}/>
             </React.Fragment>
         );
     }
