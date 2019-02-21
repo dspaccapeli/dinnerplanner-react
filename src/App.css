@@ -1,0 +1,194 @@
+.header {
+    padding: 20px;
+    background-color: lightgray;
+    text-align: center;
+}
+
+.fill {
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.media-object {
+    width: 100%;
+    height: auto;
+}
+.media-box {
+    vertical-align: middle;
+}
+
+.media-body {
+    align: center;
+}
+
+.header {
+    padding: 20px;
+    background-color: lightgray;
+}
+.body_text {
+    padding: 20px;
+}
+.ver_align_middle {
+    vertical-align: middle;
+}
+.table_top {
+    background-color: lightgray;
+    border: 1px solid darkgray;
+}
+.padding {
+    margin-top: 110px !important;
+}
+.padding_5 {
+    padding: 5px;
+}
+.padding_10 {
+    padding: 10px;
+}
+.margin_5 {
+    margin: 5px;
+}
+
+@media screen and (min-width: 576px) {
+    #lalala {
+        display: block !important;
+        visibility: visible !important;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    #lalaland {
+        display: block !important;
+        visibility: visible !important;
+    }
+}
+
+.blue {
+    color: darkcyan;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.loading {
+    align-items: center;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    border: 0.25rem solid rgba(255, 255, 255, 0.2);
+    border-top-color: darkcyan;
+    animation: spin 1s infinite linear;
+}
+/*
+.center-cropped {
+    object-fit: none;
+    object-position: center;
+    min-width: 100%;
+    height: auto;
+}
+
+.box {
+    position: relative;
+}
+
+.box:before {
+    content: "";
+    display: block;
+    padding-top: 100%;
+}
+
+.content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+*/
+.box {
+    height: auto;
+    width: 100%;
+    padding-bottom: 20%;
+}
+
+.content {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 100%;
+}
+
+.content img {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    max-width: 100%;
+    max-height: fit-content;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+/*
+.heading {
+    overflow: auto;
+    white-space: nowrap;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+*/
+
+.heading {
+    /* Over flow hidden hides the text if it is more than N lines  */
+    overflow: hidden;
+    /* To set '...' in absolute position */
+    position: relative;
+    /* Use this value to count block height */
+    line-height: 1.2em;
+    /* Max-height = line-height (1.2) * lines max number (2) */
+    max-height: 1.2em;
+    /* If the last visible word doesn't adjoin right side then this will fix the problem */
+    text-align: center !important;
+    /* place for '...' */
+    padding-right: 40px;
+    padding-left: 1em;
+}
+
+/* create the ... */
+.heading:before {
+    /* points in the end */
+    content: "...";
+    /* absolute position */
+    position: absolute;
+    /* set position to right bottom corner of block */
+    right: 20px;
+    bottom: 0;
+}
+
+/* hide ... if we have text, which is less than or equal to max lines */
+.heading:after {
+    /* points in the end */
+    content: "";
+    /* absolute position */
+    position: absolute;
+    /* set position to right bottom corner of text */
+    right: 20px;
+    /* set width and height */
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    /* bg color = bg color under block */
+    background: white;
+}
+
+.button-center {
+    align-self: center;
+}

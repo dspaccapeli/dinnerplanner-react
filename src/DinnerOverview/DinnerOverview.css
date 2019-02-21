@@ -1,0 +1,13 @@
+.flexEnd {
+    align-self: flex-end;
+}
+.verticalLine {
+    border-left: 1px solid lightgray;
+    height: max-content;
+}
+.pad_5 {
+    padding: 5px;
+}
+.mar_5 {
+    margin: 5px;
+}
