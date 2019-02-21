@@ -13,18 +13,22 @@ const resultNumber = 20;
 class DinnerModel extends ObservableModel {
     constructor() {
         super();
+        /* OLD INIT
         this._numberOfGuests = 1;
         this.getNumberOfGuests();
+        */
 
         /* Defined by us to replicate the previous DinnerModel behavior */
         if(localStorage){
-            this.menu = [];
-            this.chosenDish = 262682;
-            this.chosenDishDetails = {};
+            this.menu = JSON.parse(localStorage.getItem('menu'));
+            this.chosenDish = localStorage.getItem('chosenDish');
+            this.chosenDishDetails = JSON.parse(localStorage.getItem('chosenDishDetails'));
+            this._numberOfGuests = localStorage.getItem('numberOfGuests');
         }else{
             this.menu = [];
             this.chosenDish = 262682;
             this.chosenDishDetails = {};
+            this._numberOfGuests = 1;
         }
 
         this.lastType = "All";
@@ -45,6 +49,7 @@ class DinnerModel extends ObservableModel {
     setNumberOfGuests(num) {
         this._numberOfGuests = num;
         this.notifyObservers();
+        localStorage.setItem('numberOfGuests', num);
     }
 
     // API methods
@@ -141,10 +146,12 @@ class DinnerModel extends ObservableModel {
                 newMenu.push(toAdd);
                 this.menu = newMenu;
                 this.notifyObservers("addedToMenu");
+                localStorage.setItem("menu", JSON.stringify(newMenu))
             });
         } else {
             this.menu.push(this.getChosenDishDetails());
             this.notifyObservers("addedToMenu");
+            localStorage.setItem("menu", JSON.stringify(this.menu))
         }
     };
 
@@ -164,8 +171,9 @@ class DinnerModel extends ObservableModel {
         return this.chosenDishDetails;
     };
 
-    setChosenDishDetails = function(dish) {
+    setChosenDishDetails (dish) {
         this.chosenDishDetails = dish;
+        localStorage.setItem('chosenDishDetails', JSON.stringify(dish));
     };
 
     getFullMenu = function() {
