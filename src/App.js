@@ -12,16 +12,19 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "Dinner Planner"
+      title: "Dinner Planner", 
+      numOfGuests: localStorage.getItem('numOfGuests') || '1',
+      menu: JSON.parse(localStorage.getItem('menu')) || {}
     };
+    console.log(this.state);
   }
 
   render() {
+
     return (
       <div className="App">
         <header align="center" className="App-header">
           <h1 className="App-title">{this.state.title}</h1>
-
           {/* We rended diffrent component based on the path */}
           <Route 
             exact 
