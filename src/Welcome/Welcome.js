@@ -4,10 +4,10 @@ import "./Welcome.css";
 
 class Welcome extends Component {
 
-  testFn = () => {
+  /*testFn = () => {
     localStorage.setItem("numOfGuests", 1);
     localStorage.setItem("menu", JSON.stringify({"lala": 1, "lala2": 3}));
-  }
+  }*/
 
   render() {
     return (
@@ -15,7 +15,7 @@ class Welcome extends Component {
         <p>Welcome to the dinner planner React Startup code!</p>
 
         <Link to="/search">
-          <button onClick={this.testFn}>Start planning</button>
+          <button /*onClick={this.testFn}*/>Start planning</button>
         </Link>
       </div>
     );

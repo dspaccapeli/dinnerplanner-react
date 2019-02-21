@@ -1,8 +1,12 @@
 import ObservableModel from "./ObservableModel";
+/* Import .gitignore'd ApiKey.js */
+import ApiKey from "./ApiKey";
 
-const BASE_URL = "http://sunset.nada.kth.se:8080/iprog/group/64";
+/* Setup the API parameters */
+const apiKey = new ApiKey();
+const BASE_URL = apiKey.getUrl();
 const httpOptions = {
-  headers: { "X-Mashape-Key": "3d2a031b4cmsh5cd4e7b939ada54p19f679jsn9a775627d767"},
+  headers: { "X-Mashape-Key": apiKey.getKey() },
 };
 
 class DinnerModel extends ObservableModel {

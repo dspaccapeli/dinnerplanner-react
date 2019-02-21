@@ -12,11 +12,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "Dinner Planner", 
-      numOfGuests: localStorage.getItem('numOfGuests') || '1',
-      menu: JSON.parse(localStorage.getItem('menu')) || {}
+      title: "Dinner Planner"
     };
-    console.log(this.state);
   }
 
   render() {

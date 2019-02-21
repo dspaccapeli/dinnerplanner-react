@@ -1,14 +1,12 @@
-import React, { Component } from "react";
-import Sidebar from "../Sidebar/Sidebar";
-import Topbar from "../Topbar/Topbar";
-import Dishes from "../Dishes/Dishes";
-import "./DinnerOverview.css";
-import "../App.css";
+import React from "react";
 import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
+import "../App.css";
+import Topbar from "../Topbar/Topbar";
+import "./DinnerOverview.css";
 
 const ColoredLine = ({ color }) => (
     <hr
