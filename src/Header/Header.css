@@ -1,0 +1,8 @@
+.header {
+    padding: 20px;
+    background-color: lightgray;
+    text-align: center;
+    display: block;
+    text-decoration: none !important;
+    color: black !important;
+}
