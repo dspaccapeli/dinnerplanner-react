@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// Alternative to passing the moderl as the component property,
+// Alternative to passing the model as the component property,
 // we can import the model instance directly
 import modelInstance from "../data/DinnerModel";
 import "./Dishes.css";

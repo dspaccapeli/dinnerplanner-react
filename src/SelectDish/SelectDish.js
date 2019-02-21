@@ -19,8 +19,7 @@ class SelectDish extends Component {
                 <h2>This is the Select Dish screen</h2>
             </Col>
             <Col md={4}>
-                {/*<Dishes />*/}
-                <h1>hey</h1>
+                <Dishes />
             </Col>
         </Row>
       </Container>

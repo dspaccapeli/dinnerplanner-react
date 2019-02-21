@@ -4,7 +4,9 @@ import "./Sidebar.css";
 
 /* Add Bootstrap Components from OLD */
 import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
@@ -57,19 +59,19 @@ class Sidebar extends Component {
 
   render() {
     return (
-        <Container fluid="true" className="fill">
+        <div>
           <Navbar>
-            <Col md={10} xs={5}>
-              <h4>My Dinner {this.state.numberOfGuests}</h4>
-            </Col>
-            <Col md={1} xs={5} className="d-md-none">
-              <h4 className="moneyMenu">SEK {this.state.totalAmount}</h4>
-            </Col>
-            <Col md={1} xs={2} className="d-md-none">
-              <Button variant="light" onClick={this.toggleBurger.bind(this)}>
-                <span className="navbar-toggler-icon" />
-              </Button>
-            </Col>
+              <Col md={10} xs={5}>
+                <h4>My Dinner</h4>
+              </Col>
+              <Col md={1} xs={5} className="d-md-none">
+                <h4 className="moneyMenu">SEK {this.state.totalAmount}</h4>
+              </Col>
+              <Col md={1} xs={2} className="d-md-none">
+                <Button variant="light" onClick={this.toggleBurger.bind(this)}>
+                  <span className="navbar-toggler-icon" />
+                </Button>
+              </Col>
           </Navbar>
           <div
               className={
@@ -84,7 +86,7 @@ class Sidebar extends Component {
                 model={this.props.model}
             />
           </div>
-        </Container>
+        </div>
     );
   }
 }
@@ -119,21 +121,22 @@ class PeopleSelect extends React.Component {
     this.state = {
       validated: true,
       numberOfGuests: this.props.model.getNumberOfGuests()
-    }
+    };
+
+    this.handleInput = this.handleInput.bind(this);
   }
 
-  handleValidation = e => {
-    let peopleInput = parseInt(e.target.value);
-    if(peopleInput > 0){
+  handleInput = e => {
+    if(e > 0){
       this.setState({
         validated: true,
-        numberOfGuests: peopleInput
+        numberOfGuests: e
       });
-      this.props.model.setNumberOfGuests(peopleInput);
+      this.props.model.setNumberOfGuests(e);
     } else {
       this.setState({
         validated: false,
-        numberOfGuests: peopleInput
+        numberOfGuests: e
       })
     }
   };
@@ -141,23 +144,17 @@ class PeopleSelect extends React.Component {
   render() {
     const { validated } = this.state;
     return (
-          <Form
-              noValidate
-              validated={validated}
-          >
+          <Form className="menuContent">
             <Form.Group controlId="formNumOfGuests">
               <Form.Label>People:</Form.Label>
               <Form.Control
                   type="number"
-                  placeholder={this.state.numberOfGuests}
-                  value={this.state.numberOfGuests || 0}
-                  onChange={e => {
-                    this.handleValidation(e);
-                    console.log('raz')
-                  }}
+                  min="1"
+                  value={this.state.numberOfGuests}
+                  onChange={e => {this.handleInput(e.target.value);}}
               />
             </Form.Group>
-            {validated ? '' : 'Please input an integer > 0'}
+            {validated ? '' : <p className="green">Please input an integer > 0</p>}
           </Form>
     );
   }
@@ -166,7 +163,24 @@ class PeopleSelect extends React.Component {
 class MenuTable extends React.Component {
 
   render() {
-    return <h1>"hey"</h1>;
+    return (
+        <div className="menuContent">
+          <Table striped bordered hover size="sm">
+            <thead>
+            <tr>
+              <th>Dish Name</th>
+              <th>Cost</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>1</td>
+              <td>Mark</td>
+            </tr>
+            </tbody>
+          </Table>
+        </div>
+    );
   }
 }
 
