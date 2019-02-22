@@ -49,32 +49,59 @@ export class DishItem extends React.Component {
 export class DishList extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            status: "LOADING"
+        };
     }
 
-    getAllDishItems (promise) {
-        console.log("I'm here.");
-        promise.then(dishDict => {
-            console.log("I'm here.2");
-            if (Object.keys(dishDict).length === 0) {
-                return "No dishes matching this criteria were found.";
-            }
-            return dishDict.map((entry) => <DishItem dishId={entry.id} name={entry.name} imgSrc={entry.image} />);
-            
-        }).catch( error => {
-            if (error.name === "TypeError" && error.message === "Failed to fetch") {
-                return "Could not load data from the server. Please check your internet connection and try again.";
-            }
-            else {
-                return "An unknown error occured: "+ error.message;
-            }
-        });
+    callApi = () => {
+        this.props.model
+          .getAllDishes(this.props.type, this.props.filter)
+          .then(dishes => {
+            console.log(dishes);
+            this.setState({
+              status: "LOADED",
+              dishes: dishes
+            });
+          })
+          .catch(() => {
+            this.setState({
+              status: "ERROR"
+            });
+          });
+    }
+
+    componentDidMount() {
+        // when data is retrieved we update the state
+        // this will cause the component to re-render
+        this.callApi();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.type !== prevProps.type || this.props.filter !== prevProps.filter) {
+            this.callApi();
+        }
     }
 
     render() {
+        let dishesList = null;
+        switch (this.state.status) {
+        case "LOADING":
+            dishesList = <em>Loading...</em>;
+            break;
+        case "LOADED":
+            console.log(this.state.dishes);
+            dishesList = this.state.dishes.map((dish, i) => <DishItem key={i} dishId={dish.id} name={dish.name} imgSrc={dish.image} />);
+            break;
+        default:
+            dishesList = <b>Failed to load data, please try again</b>;
+            break;
+        }
+
         return (
             <React.Fragment>
                 <Row className="align-items-center" id="dish_again_list">
-                    {this.getAllDishItems(this.props.model.getAllDishes(this.props.type, this.props.filter))}
+                    {dishesList}
                 </Row>
             </React.Fragment>
         );
@@ -102,6 +129,7 @@ export class DishSearch extends React.Component {
                             className="form-control"
                             id="keywords"
                             placeholder="Enter key words"
+                            onChange={(e) => this.setState({keywords: e.target.value})}
                         />
                     </Col>
                     <Col sm={4} align="center" className="dropdown">
@@ -116,7 +144,7 @@ export class DishSearch extends React.Component {
                         </DropdownButton>
                     </Col>
                     <Col sm={4} align="center">
-                        <Button variant="info" id="search_button" className="mar_top_5" /*onClick={this.props.changeFn(this.title, this.keywords)}*/ >
+                        <Button variant="info" id="search_button" className="mar_top_5" onClick={() => this.props.changeFn(this.state.title, this.state.keywords)} >
                             Search
                         </Button>
                     </Col>
@@ -137,17 +165,17 @@ export default class SelectDish extends React.Component {
           };
     }
 
-    changeSearchParams (type, filter) {
+    changeSearchParams = (type, filter) => {
         this.setState({
           type: type,
           filter: filter
         });
-      }
+    }
 
     render() {
         return (
             <React.Fragment>
-                <DishSearch changeFn={this.changeSearchParams.bind(this)} />
+                <DishSearch changeFn={this.changeSearchParams}/>
                 <DishList model={this.props.model} type={this.state.type} filter={this.state.filter}/>
             </React.Fragment>
         );

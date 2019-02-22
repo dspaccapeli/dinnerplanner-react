@@ -37,27 +37,28 @@ class Overview extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            totalPrice: 0
+            menu: this.props.model.getFullMenu(),
+            totalPrice: this.props.model.getFullMenu.length > 0 ? this.props.model.getFullMenu().reduce((accumulator1, entry) => 
+                accumulator1 + entry.reduce((accumulator2, ingredient) =>
+                    accumulator2 + ingredient.price
+                )
+            ) * this.props.model.getNumberOfGuests() : 0
         };
     }
     
     getAllMenuItems() {
-        const menu = this.props.model.getFullMenu();
-        this.setState({ totalPrice: 0 })
-        return menu.forEach((entry) => {
+        return this.state.menu.forEach((entry) => {
             let price = 0;
             (entry.ingredients).forEach((ingredient) => {
                 price += ingredient.price;
             });
-
             price *= this.props.model.getNumberOfGuests();
-            let total = this.state.totalPrice + price;
-            this.setState({ totalPrice: total })
             return <DinnerItem price={price} name={entry.name} imgSrc={entry.image} />
         })
     }
 
     render() {
+        
         return (
             <Container fluid="true" className="fill">
                 <Row>
