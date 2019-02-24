@@ -64,7 +64,7 @@ class Sidebar extends Component {
                         <h4>My Dinner</h4>
                     </Col>
                     <Col md={1} xs={5} className="d-md-none">
-                        <h4 className="green">SEK {this.state.totalAmount}</h4>
+                        <h4 className="green">SEK {this.props.model.getTotalMenuPrice()}</h4>
                     </Col>
                     <Col md={1} xs={2} className="d-md-none">
                         <Button variant="light" onClick={this.toggleBurger.bind(this)}>
