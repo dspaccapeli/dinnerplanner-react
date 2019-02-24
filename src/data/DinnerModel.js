@@ -13,23 +13,11 @@ const resultNumber = 20;
 class DinnerModel extends ObservableModel {
     constructor() {
         super();
-        /* OLD INIT
-        this._numberOfGuests = 1;
-        this.getNumberOfGuests();
-        */
-
         /* Defined by us to replicate the previous DinnerModel behavior */
-        if(localStorage){
-            this.menu = JSON.parse(localStorage.getItem('menu'));
-            this.chosenDish = localStorage.getItem('chosenDish');
-            this.chosenDishDetails = JSON.parse(localStorage.getItem('chosenDishDetails'));
-            this._numberOfGuests = localStorage.getItem('numberOfGuests');
-        }else{
-            this.menu = [];
-            this.chosenDish = 262682;
-            this.chosenDishDetails = {};
-            this._numberOfGuests = 1;
-        }
+        this.menu = JSON.parse(localStorage.getItem('menu')) || [];
+        this.chosenDish = localStorage.getItem('chosenDish') || 262682;
+        this.chosenDishDetails = JSON.parse(localStorage.getItem('chosenDishDetails')) || {};
+        this._numberOfGuests = localStorage.getItem('numberOfGuests') || 1;
 
         this.lastType = "All";
     }
@@ -64,6 +52,10 @@ class DinnerModel extends ObservableModel {
         if(type === "All" || type === undefined){
             type = ' ';
         }
+        if(filter === undefined){
+            filter = ' ';
+        }
+
         // Create the URL parameter list
         let searchUrl = new URL(url);
         // Create the URL parameter list
@@ -101,7 +93,6 @@ class DinnerModel extends ObservableModel {
 
     getDish (id) {
         let dish = {};
-
         return fetch(`${BASE_URL}/recipes/${id}/information`, httpOptions)
             .then(this.processResponse)
             .then(data => {
@@ -143,13 +134,22 @@ class DinnerModel extends ObservableModel {
                 this.menu.forEach((entry) => {
                     newMenu.push(entry);
                 });
-                newMenu.push(toAdd);
+                let index = newMenu.findIndex(x => x.name===toAdd.name);
+
+                if(index === -1){
+                    newMenu.push(toAdd);
+                }
                 this.menu = newMenu;
                 this.notifyObservers("addedToMenu");
                 localStorage.setItem("menu", JSON.stringify(newMenu))
             });
         } else {
-            this.menu.push(this.getChosenDishDetails());
+            let index = this.menu.findIndex(x => x.name===this.getChosenDishDetails().name);
+
+            if(index === -1){
+                this.menu.push(this.getChosenDishDetails());
+            }
+
             this.notifyObservers("addedToMenu");
             localStorage.setItem("menu", JSON.stringify(this.menu))
         }

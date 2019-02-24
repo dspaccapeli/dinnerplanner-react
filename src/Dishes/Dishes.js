@@ -21,18 +21,18 @@ class Dishes extends Component {
     // when data is retrieved we update the state
     // this will cause the component to re-render
     modelInstance
-      .getAllDishes()
-      .then(dishes => {
-        this.setState({
-          status: "LOADED",
-          dishes: dishes.results
+        .getAllDishes()
+        .then(dishes => {
+          this.setState({
+            status: "LOADED",
+            dishes: dishes
+          });
+        })
+        .catch(() => {
+          this.setState({
+            status: "ERROR"
+          });
         });
-      })
-      .catch(() => {
-        this.setState({
-          status: "ERROR"
-        });
-      });
   }
 
   render() {
@@ -47,7 +47,7 @@ class Dishes extends Component {
         break;
       case "LOADED":
         dishesList = this.state.dishes.map(dish => (
-          <li key={dish.id}>{dish.title}</li>
+            <li key={dish.id}>{dish.name}</li>
         ));
         break;
       default:
@@ -56,10 +56,10 @@ class Dishes extends Component {
     }
 
     return (
-      <div className="Dishes">
-        <h3>Dishes</h3>
-        <ul>{dishesList}</ul>
-      </div>
+        <div className="Dishes">
+          <h3>Dishes</h3>
+          <ul>{dishesList}</ul>
+        </div>
     );
   }
 }

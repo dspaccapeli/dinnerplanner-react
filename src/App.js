@@ -7,7 +7,7 @@ import "./App.css";
 
 import Container from "react-bootstrap/Container"
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import DishDetails from "./DishDetails/DishDetails";
 
 import Header from "./Header/Header"
 
@@ -30,6 +30,10 @@ class App extends Component {
           <Route
             path="/search"
             render={() => <SelectDish model={modelInstance} />}
+          />
+          <Route
+              path="/details/:id"
+              render={(props) => <DishDetails {...props} model={modelInstance} />}
           />
         </header>
       </Container>
