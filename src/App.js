@@ -10,6 +10,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import DishDetails from "./DishDetails/DishDetails";
 
 import Header from "./Header/Header"
+// Nezas
+import DinnerOverview from "./DinnerOverview/DinnerOverview";
+import DinnerPrintout from "./DinnerPrintout/DinnerPrintout";
 
 class App extends Component {
   constructor(props) {
@@ -31,9 +34,19 @@ class App extends Component {
             path="/search"
             render={() => <SelectDish model={modelInstance} />}
           />
+          {/* details -> dish */}
           <Route
-              path="/details/:id"
+              path="/dish/:id"
               render={(props) => <DishDetails {...props} model={modelInstance} />}
+          />
+          {/* Nezas routes */}
+          <Route
+              path="/overview"
+              render={() => <DinnerOverview model={modelInstance} />}
+          />
+          <Route
+              path="/printout"
+              render={() => <DinnerPrintout model={modelInstance} />}
           />
         </header>
       </Container>
