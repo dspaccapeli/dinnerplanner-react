@@ -54,31 +54,6 @@ class SelectDish extends React.Component {
     }
 }
 
-export class DishItem extends React.Component {
-    render() {
-        return (
-            <React.Fragment>
-                <Col md={4} sm={6} className="media_box dish_item pointerStyle" >
-                    <Link to={`/dish/${this.props.dishId}`}>
-                        <div className="box">
-                            <div className="content">
-                                <img
-                                    src={this.props.imgSrc}
-                                    alt={this.props.imgSrc}
-                                    className="img img-responsive full-width media-object"
-                                />
-                            </div>
-                            <div className="caption" align="center">
-                                <h5 className="heading">{this.props.name}</h5>
-                            </div>
-                        </div>
-                    </Link>
-                </Col>
-            </React.Fragment>
-        );
-    }
-}
-
 export class DishList extends React.Component {
     constructor(props) {
         super(props);
@@ -91,7 +66,6 @@ export class DishList extends React.Component {
         this.props.model
             .getAllDishes(this.props.type, this.props.filter)
             .then(dishes => {
-                console.log(dishes);
                 this.setState({
                     status: "LOADED",
                     dishes: dishes
@@ -102,7 +76,7 @@ export class DishList extends React.Component {
                     status: "ERROR"
                 });
             });
-    }
+    };
 
     componentDidMount() {
         // when data is retrieved we update the state
@@ -123,7 +97,6 @@ export class DishList extends React.Component {
                 dishesList = <em>Loading...</em>;
                 break;
             case "LOADED":
-                console.log(this.state.dishes);
                 dishesList = this.state.dishes.map((dish, i) => <DishItem key={i} dishId={dish.id} name={dish.name} imgSrc={dish.image} />);
                 break;
             default:
@@ -136,6 +109,31 @@ export class DishList extends React.Component {
                 <Row className="align-items-center" id="dish_again_list">
                     {dishesList}
                 </Row>
+            </React.Fragment>
+        );
+    }
+}
+
+export class DishItem extends React.Component {
+    render() {
+        return (
+            <React.Fragment>
+                <Col md={4} sm={6} className="media_box dish_item pointerStyle" >
+                    <Link to={`/dish/${this.props.dishId}`}>
+                        <div className="box">
+                            <div className="content">
+                                <img
+                                    src={this.props.imgSrc}
+                                    alt={this.props.imgSrc}
+                                    className="img img-responsive full-width media-object"
+                                />
+                            </div>
+                            <div className="caption" align="center">
+                                <h5 className="heading">{this.props.name}</h5>
+                            </div>
+                        </div>
+                    </Link>
+                </Col>
             </React.Fragment>
         );
     }
