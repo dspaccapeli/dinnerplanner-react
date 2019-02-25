@@ -5,26 +5,16 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { Link } from "react-router-dom";
 import "../App.css";
-import Topbar from "../Topbar/Topbar";
+import Topbar, { ColoredLine } from "../Topbar/Topbar";
 import "./DinnerOverview.css";
-
-const ColoredLine = ({ color }) => (
-    <hr
-        style={{
-            color: color,
-            backgroundColor: color,
-            height: 1
-        }}
-    />
-);
 
 export default class DinnerOverview extends React.Component {
     render() {
         return (
-            <React.Fragment>
+            <Container fluid={"true"} className="mar_5">
                 <Topbar model={this.props.model}/>
                 <Overview model={this.props.model} />
-            </React.Fragment>
+            </Container>
         );
     }
 }
@@ -82,12 +72,12 @@ class Overview extends React.Component {
                 <Row>
                     <Col md={2}/>
                     <Col md={8} id="menu_dishes">
-                        <Row className="align-items-end" id="menu_dishes_row">
+                        <Row className="align-items-center" id="menu_dishes_row">
                             {this.getAllMenuItems()}
                         </Row>
                     </Col>
 
-                    <Col md={2} className="flexEnd">
+                    <Col md={2} className="flexEnd pad_20p">
                         <div className="verticalLine"/>
                         <h6 className="total">Total: &nbsp; </h6>
                         <h6 className="totalPrice" id="overview_total">{this.state.totalPrice} &nbsp; SEK </h6>

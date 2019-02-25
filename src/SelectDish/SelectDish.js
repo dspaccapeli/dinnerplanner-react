@@ -10,16 +10,7 @@ import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
-
-const ColoredLine = ({ color }) => (
-    <hr
-        style={{
-            color: color,
-            backgroundColor: color,
-            height: 1
-        }}
-    />
-);
+import { ColoredLine } from "../Topbar/Topbar";
 
 class SelectDish extends React.Component {
     constructor(props) {

@@ -8,7 +8,7 @@ class Header extends React.Component {
     render() {
         return (
             <Container fluid={"true"}>
-                <a href={"./"} className="header">
+                <a href={"../"} className="header">
                     <span>
                         <h1>{this.props.title}</h1>
                     </span>

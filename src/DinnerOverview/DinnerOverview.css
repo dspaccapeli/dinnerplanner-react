@@ -29,10 +29,6 @@
     padding-top: 5px;
 }
 
-.burger {
-    align-content: right;
-}
-
 .pointerStyle {
     cursor: pointer;
 }
@@ -107,4 +103,8 @@
 }
 .mar_top_5 {
     margin-top: 5px;
+}
+
+.pad_20p {
+    padding-bottom: 5%;
 }

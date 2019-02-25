@@ -1,3 +1,24 @@
 .ver_align {
     vertical-align: middle;
 }
+
+.box {
+    height: auto;
+    width: 100%;
+    padding-bottom: 20%;
+}
+.content {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 100%;
+}
+.content img {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    max-width: 100%;
+    max-height: fit-content;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
