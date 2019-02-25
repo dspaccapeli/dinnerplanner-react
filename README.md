@@ -1,43 +1,38 @@
-# Dinner Planner React
-
-## How to get started
-
-Since modern frameworks use some advanced features like compiling the templates and source code in pure
-JavaScript and dynamically loading the needed content, you cannot anymore just open the HTML file 
-in the browser. Instead, you will need a local webserver that will serve your app. Follow the instructions 
-bellow to install all the neded dependencies (e.g. the framework libraries) and the development webserver.
-
-1. First, make sure that you have npm installed on your system (follow the instructions
-   at [Installing Node](https://docs.npmjs.com/getting-started/installing-node). The computers in the lab rooms
-   should already have it, you will just need to do `module add node` to activate it (every time
-   you start the terminal).
-
-2. Run `npm install` through the terminal in the root of the repository. Let it
-   install all the dependencies.
-
-3. Run `npm start` through the terminal. This will start the webserver and the application should pop up in your
-   browser ready for use. Alternatively you can open in through [http://localhost:3000]. Whenever you make changes in your code and save, the browser will update automatically, so you don't have to click refresh anymore.
-
-## Understanding the startup code
-
-* `public/index.html` - this is the static html file, and as opposed to previous labs, we don't put view's HTML here. It should only contain HTML that's shared among all the views (e.g. header, footer)
-* `src/data/DinnerModel.js` - example of dinner model with number of guests, getAllDishes function implemented using `fetch()` and Observer pattern. You can copy other functions from your original model (and modify as needed to make it work with ES6 JavaScript class)
-* `src/index.js` - this is where React is started. You will normally not need to modify this file, but you can check it to see how React is started and how it calls the App - which is our root component.
-* `src/index.css` - put your global styles here
-* `src/App.js` - root component you can modify it's HTML and add different routes to it
-* `src/Dishes`, `src/SelectDish` etc. - contain the `.js` and `.css` file for each component. You should create your own components roughly corresponding to your views from previous labs.
-
-Check the components and see how they work. There are additional comments in the code.
-
-## What you need to do
-
-* reimplement the missing views following React practices
-* use [Router](https://reacttraining.com/react-router/web/guides/philosophy) to map different url address (e.g. /search, /dish/ID) to specific components (the startup code already does that for welcome screen and select dish screen)
-* implement cookies or localStorage so that the numberOfGuests and menu are persisted on the page reload
+# Interaction Programing - Lab assignment - React
 
 
-## Credits
+This project consists in a simple React app. The app will let the user dynamically construct its menu consisting of one element per each dish category ('appetizers', 'main dishes', 'desserts', etc...). After having constructed the menu, it's possible to decide for how many people to order for and view the ingredients list.
 
-* Michel Tabari for fine tunning the code
+Sketches can be found at this [link](https://kth-csc.mybalsamiq.com/projects/dh2642-vt18-dinnerplanner/grid). The app was developed under the course [DH2642](https://www.kth.se/social/course/DH2642/) at [KTH](https://www.kth.se/).
+## How to run the app
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+1. Clone the directory.
+
+2. Add a file called _ApiKey.js_ under the _data_ directory with the following content:
+
+```
+const GROUP_NUMBER = YOUR GROUP NUMBER : INTEGER;
+
+class ApiKey {
+
+    constructor(){
+        this._keyString = 'YOUR API KEY HERE : STRING';
+        this._baseUrl = `http://sunset.nada.kth.se:8080/iprog/group/${GROUP_NUMBER}`;
+    }
+
+    getKey() {
+        return this._keyString;
+    }
+
+    getUrl() {
+        return this._baseUrl;
+    }
+
+}
+
+export default ApiKey;
+```
+
+Modify the group number and the API key string.
+
+3. 'npm start' in the project directory.

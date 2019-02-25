@@ -11,8 +11,7 @@ class Welcome extends Component {
     return (
       <Container fluid={"true"}>
           <div className="Welcome">
-              <p>Welcome to the dinner planner React Startup code!
-                  Change me with the full options, as in the prev labs</p>
+              <p>Welcome to the Dinner Planner app! Here you can order a menu for you and your friends. Select how many of you are there in the sidebar and then select a dish per each type: Appetizers, Main Courses, Side Dishes, Desserts, Salads, Bread, Breakfast, Soup, Beverages, Sauces, Drinks and Desserts. Bon Appetit!</p>
 
               <Link to="/search">
                   <Button>Start planning</Button>
