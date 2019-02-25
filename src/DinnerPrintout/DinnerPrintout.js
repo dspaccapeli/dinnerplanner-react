@@ -4,6 +4,8 @@ import Topbar from "../Topbar/Topbar";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+import DOMPurify from 'dompurify'
+
 const ColoredLine = ({ color }) => (
     <hr
         style={{
@@ -30,7 +32,9 @@ export default class DinnerPrintout extends React.Component {
 class Printout extends React.Component {
     getAllMenuItems() {
         const menu = this.props.model.getFullMenu();
-        return menu.forEach((entry) => <PrintoutItem type={entry.type} description={entry.description} name={entry.name} imgSrc={entry.image}/>)
+        let returnTemp = [];
+        menu.forEach((entry) => returnTemp.push(<PrintoutItem type={entry.type} description={entry.description} name={entry.name} imgSrc={entry.image}/>))
+        return returnTemp;
     }
 
     render() {
@@ -51,7 +55,10 @@ class PrintoutItem extends React.Component {
                 <Row>
                     <Col md={3} sm={4} className="media_box ver_align" >
                         <div className="media-top padding_5">
-                            <img alt={this.props.imgSrc} className="media-object" src={this.props.imgSrc} />
+                            <img
+                                alt={this.props.imgSrc}
+                                className="media-object"
+                                src={this.props.imgSrc} />
                         </div>
                     </Col>
                     <Col md={3} sm={4} id="dish">
@@ -62,9 +69,7 @@ class PrintoutItem extends React.Component {
                     </Col>{" "}
                     <Col md={5}>
                         <h4>Preparation</h4>
-                        <p className="body_text" id="randomText2">
-                            {this.props.description}
-                        </p>
+                        <div className="body_text" id="randomText2" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(this.props.description)}}/>
                     </Col>
                 </Row>
                 <ColoredLine color="grey" />

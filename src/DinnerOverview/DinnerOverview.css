@@ -11,3 +11,100 @@
 .mar_5 {
     margin: 5px;
 }
+
+/* ADDED FOR CONFORMITY */
+
+.header {
+    padding: 20px;
+    background-color: lightgray;
+    text-align: center;
+}
+
+.fill {
+    padding: 0;
+}
+
+.moneyMenu {
+    color: darkcyan;
+    padding-top: 5px;
+}
+
+.burger {
+    align-content: right;
+}
+
+.pointerStyle {
+    cursor: pointer;
+}
+.box {
+    height: auto;
+    width: 100%;
+    padding-bottom: 20%;
+}
+.content {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 100%;
+}
+.content img {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    max-width: 100%;
+    max-height: fit-content;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+.heading {
+    /* Over flow hidden hides the text if it is more than N lines  */
+    overflow: hidden;
+    /* To set '...' in absolute position */
+    position: relative;
+    /* Use this value to count block height */
+    line-height: 1.2em;
+    /* Max-height = line-height (1.2) * lines max number (2) */
+    max-height: 1.2em;
+    /* If the last visible word doesn't adjoin right side then this will fix the problem */
+    text-align: center !important;
+    /* place for '...' */
+    padding-right: 40px;
+    padding-left: 1em;
+}
+.heading:before {
+    /* points in the end */
+    content: "...";
+    /* absolute position */
+    position: absolute;
+    /* set position to right bottom corner of block */
+    right: 20px;
+    bottom: 0;
+}
+/* hide ... if we have text, which is less than or equal to max lines */
+.heading:after {
+    /* points in the end */
+    content: "";
+    /* absolute position */
+    position: absolute;
+    /* set position to right bottom corner of text */
+    right: 20px;
+    /* set width and height */
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    /* bg color = bg color under block */
+    background: white;
+}
+.pad_top_5 {
+    padding-top: 5px;
+}
+.pad_left_5 {
+    padding-left: 5px;
+}
+.mar_leftRight_5 {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.mar_top_5 {
+    margin-top: 5px;
+}

@@ -32,25 +32,47 @@ export default class DinnerOverview extends React.Component {
 class Overview extends React.Component {
     constructor(props) {
         super(props);
+        // Daniele
+        let menu = this.props.model.getFullMenu();
+        let totalPrice = 0;
+        // Calculate total price NEW
+        if (menu && menu.length !== 0){
+            menu = menu.map((dish) => {
+                    return {
+                        name: dish.name,
+                        price: dish.ingredients.reduce((in1, in2) => {
+                            return in1.price ? in1.price + in2.price : in1 + in2.price;
+                        }),
+                        ingredients: dish.ingredients,
+                        image: dish.image
+                    };
+                }
+            );
+            totalPrice = menu.reduce((dish1, dish2) => {
+                    return dish1.price ? dish1.price + dish2.price : dish1 + dish2.price;
+                }
+            );
+            if (isNaN(totalPrice)) {
+                totalPrice = totalPrice.price;
+            }
+        }
         this.state = {
-            menu: this.props.model.getFullMenu(),
-            totalPrice: this.props.model.getFullMenu.length > 0 ? this.props.model.getFullMenu().reduce((accumulator1, entry) =>
-                accumulator1 + entry.reduce((accumulator2, ingredient) =>
-                accumulator2 + ingredient.price
-                )
-            ) * this.props.model.getNumberOfGuests() : 0
+            menu: menu,
+            totalPrice: totalPrice*this.props.model.getNumberOfGuests()
         };
     }
 
     getAllMenuItems() {
-        return this.state.menu.forEach((entry) => {
+        let arrayReturn = [];
+        this.state.menu.forEach((entry) => {
             let price = 0;
             (entry.ingredients).forEach((ingredient) => {
                 price += ingredient.price;
             });
             price *= this.props.model.getNumberOfGuests();
-            return <DinnerItem price={price} name={entry.name} imgSrc={entry.image} />
-        })
+            arrayReturn.push(<DinnerItem key={entry.name} price={price} name={entry.name} imgSrc={entry.image} />);
+        });
+        return arrayReturn;
     }
 
     render() {
@@ -58,15 +80,15 @@ class Overview extends React.Component {
         return (
             <Container fluid="true" className="fill">
                 <Row>
-                    <Col md={4}></Col>
-                    <Col md={4} id="menu_dishes">
+                    <Col md={2}/>
+                    <Col md={8} id="menu_dishes">
                         <Row className="align-items-end" id="menu_dishes_row">
                             {this.getAllMenuItems()}
                         </Row>
                     </Col>
 
-                    <Col md={4} className="flexEnd">
-                        <div className="verticalLine"></div>
+                    <Col md={2} className="flexEnd">
+                        <div className="verticalLine"/>
                         <h6 className="total">Total: &nbsp; </h6>
                         <h6 className="totalPrice" id="overview_total">{this.state.totalPrice} &nbsp; SEK </h6>
                     </Col>
@@ -90,17 +112,34 @@ export class DinnerItem extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <Col sm={4} className="media_box mar_5">
-                    <div className="media-top">
-                        <img alt={this.props.imgSrc} className="media-object" src={this.props.imgSrc}/>
-                    </div>
-
-                    <div className="media-body">
-                        <h6 className="media-heading">{this.props.name}</h6>
-                    </div>
-                    <div align="right">{this.props.price} SEK</div>
+                <Col md={4} sm={6} className="media_box dish_item" >
+                        <div className="box">
+                            <div className="content">
+                                <img
+                                    src={this.props.imgSrc}
+                                    alt={this.props.imgSrc}
+                                    className="img img-responsive full-width media-object"
+                                />
+                            </div>
+                            <div className="caption" align="center">
+                                <h5 className="heading">{this.props.name}</h5>
+                            </div>
+                        </div>
                 </Col>
             </React.Fragment>
         );
     }
 }
+
+/*
+        <Col sm={4} className="media_box mar_5">
+            <div className="media-top">
+                <img alt={this.props.imgSrc} className="media-object" src={this.props.imgSrc}/>
+            </div>
+
+            <div className="media-body">
+                <h6 className="media-heading">{this.props.name}</h6>
+            </div>
+            <div align="right">{this.props.price} SEK</div>
+        </Col>
+    */
